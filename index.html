@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplikasi Kuesioner Tugas Mandiri">
+    <title>Kuesioner Tugas Mandiri</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4a90e2">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <button class="back-btn hidden" id="backBtn">
+                <span class="icon">←</span> Kembali
+            </button>
+            <h1 id="headerTitle">📋 Kuesioner Persentase Dosen yang Memberikan Tugas Mandiri</h1>
+        </header>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Memuat data...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMsg" class="error-message hidden"></div>
+
+        <!-- Success Message -->
+        <div id="successMsg" class="success-message hidden"></div>
+
+        <!-- Search Box -->
+        <div class="search-container hidden" id="searchContainer">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" 
+                       id="searchInput" 
+                       class="search-input" 
+                       placeholder="Cari nama dosen...">
+                <button class="search-clear hidden" id="searchClear">×</button>
+            </div>
+        </div>
+
+        <!-- Dosen Cards View -->
+        <div class="dosen-list" id="dosenList">
+            <!-- Dosen cards will be inserted here -->
+        </div>
+
+        <!-- Course List View -->
+        <div class="course-list hidden" id="courseList">
+            <h2 class="section-title" id="courseListTitle">Mata Kuliah Yang Diampu</h2>
+            <!-- Course items will be inserted here -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">📭</div>
+            <h2>Belum ada data</h2>
+            <p>Tidak ada data dosen yang ditemukan</p>
+        </div>
+    </div>
+
+    <!-- Modal for Update Form -->
+    <div class="modal" id="updateModal">
+        <div class="modal-content">
+            <!-- Loading Overlay -->
+            <div class="modal-loading-overlay hidden" id="modalLoadingOverlay">
+                <div class="modal-loading-content">
+                    <div class="modal-spinner"></div>
+                    <p class="modal-loading-text">Menyimpan data...</p>
+                </div>
+            </div>
+            
+            <div class="modal-header">
+                <h2 id="modalTitle">Update Data Tugas Mandiri</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <form id="updateForm">
+                <input type="hidden" id="dataId">
+                <input type="hidden" id="matakuliahKelas">
+                
+                <!-- Question 1: Apakah Memberikan Tugas Mandiri -->
+                <div class="form-group">
+                    <label class="question-label" id="question1Label">Apakah Anda Memberikan Tugas Mandiri Untuk <span id="matakuliahName"></span>?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="tugas" value="Ya" id="tugasYa" required>
+                            <span>Ya</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="tugas" value="Tidak" id="tugasTidak" required>
+                            <span>Tidak</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2: Pertemuan Checkboxes (shown when Ya is selected) -->
+                <div class="form-group hidden" id="pertemuanGroup">
+                    <label class="question-label">Pada pertemuan Berapa Anda Memberikan Tugas Mandiri?</label>
+                    <div class="checkbox-group" id="pertemuanCheckboxes">
+                        <!-- Checkboxes will be generated dynamically -->
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <span id="submitText">Update</span>
+                        <span class="submit-spinner hidden" id="submitSpinner"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
